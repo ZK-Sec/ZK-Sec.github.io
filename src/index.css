@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply antialiased text-gray-900;
+  }
+
+  .company-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+  }
+}
+
+@layer components {
+  .transition-all {
+    transition-property: all;
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Aggressive Spline watermark hiding */
+  spline-viewer::part(logo),
+  spline-viewer::part(watermark),
+  spline-viewer [data-name="watermark"],
+  spline-viewer [class*="watermark"],
+  spline-viewer [style*="z-index: 999999"],
+  spline-viewer [style*="position: absolute"][style*="bottom: 0"],
+  spline-viewer [style*="position: absolute"][style*="right: 0"],
+  spline-viewer div[style*="position: absolute"][style*="bottom"],
+  spline-viewer div[style*="position: absolute"][style*="right"],
+  spline-viewer div[style*="z-index: 999999"],
+  spline-viewer a[href*="spline.design"],
+  spline-viewer div[class*="watermark"],
+  spline-viewer div[class*="logo"],
+  spline-viewer > div:last-child {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    position: absolute !important;
+    z-index: -9999 !important;
+    clip: rect(0 0 0 0) !important;
+    clip-path: inset(100%) !important;
+    margin: -1px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /* Additional overlay to prevent watermark */
+  spline-viewer::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 150px;
+    height: 50px;
+    background: var(--bg-color, #000);
+    z-index: 1000000;
+    pointer-events: none;
+  }
+
+  /* Logo styles */
+  .zero-logo {
+    @apply text-primary;
+    filter: drop-shadow(0 0 4px currentColor);
+  }
+
+  .zero-logo circle,
+  .zero-logo rect {
+    stroke-width: 0.5;
+    stroke: rgba(255, 255, 255, 0.2);
+  }
+}
+
+@layer utilities {
+  .animate-in {
+    @apply opacity-100 translate-y-0;
+  }
+}
